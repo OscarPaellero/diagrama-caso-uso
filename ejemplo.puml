@@ -1,0 +1,46 @@
+@startuml
+left to right direction
+
+actor "Miembro Regular" as Regular
+actor "Miembro Premium" as Premium
+actor "Administrador" as Admin
+actor "Pasarela de Pago" as Pago
+actor "Sistema de Email" as Email
+
+rectangle "Sistema de Gestión de Coworking" {
+    usecase "Registrarse" as UC1
+    usecase "Modificar Perfil" as UC2
+    usecase "Reservar Sala de Reuniones" as UC3
+    usecase "Verificar Disponibilidad" as UC4
+    usecase "Enviar Confirmación por Email" as UC5
+    usecase "Pagar Reserva" as UC6
+    usecase "Solicitar Servicio de Catering" as UC7
+    usecase "Abrir Puerta con Código QR" as UC8
+    usecase "Gestionar Inventario de Salas" as UC9
+    usecase "Notificar Alerta de Fallo" as UC10
+}
+
+Regular -- UC1
+Regular -- UC2
+Regular -- UC3
+Regular -- UC8
+
+Premium -- UC1
+Premium -- UC2
+Premium -- UC3
+Premium -- UC7
+Premium -- UC8
+
+Admin -- UC9
+Admin -- UC10
+
+Pago -- UC6
+Email -- UC5
+
+UC3 ..> UC4 : <<include>>
+UC3 ..> UC5 : <<include>>
+UC3 ..> UC6 : <<extend>>
+UC7 ..> UC3 : <<extend>>
+UC10 ..> UC8 : <<extend>>
+
+@enduml
